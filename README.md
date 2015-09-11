@@ -124,9 +124,7 @@ Following are some simple examples of SCON, facing off against JSON (non-pretty-
 
 ### Test 5:
 ```ruby
-arr = []
-arr[0] = 0
-arr[101] = 100    # 100 Blank Indexes
+[0, Array.new(100).fill(nil), 100]  # 100 Blank Indexes
 ```
 
 | JSON | MsgPack | SCON |
