@@ -36,6 +36,9 @@ private
         str << tmp
       end
       return str.pack("c*").force_encoding("utf-8")
+    elsif data[0] == Constants::DATA[:zero_string]
+      data.shift
+      return ""
     else
       return false
     end

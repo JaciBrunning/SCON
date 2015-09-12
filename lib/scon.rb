@@ -30,7 +30,9 @@ module SCON
     def self.string_bytes str
       bytes = str.encode("utf-8").bytes
       instr = 0xD0
-      if bytes.length < 32
+      if bytes.length == 0
+        instr = Constants::DATA[:zero_string]
+      elsif bytes.length < 32
         instr += bytes.length
       else
         bytes << 0xFF

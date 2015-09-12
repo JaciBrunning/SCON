@@ -38,7 +38,7 @@ a number of factors.
   - NIL / TRUE / FALSE -- Enumerations, instruction contains value instead of data
   - Hash/Array Start/End -- Control Switches
   - String -- If the length of the string is less than 32 bytes, a range of 0xD0 - 0xEF is used. Else,
-0xFF is used to define the end of the string.
+0xFF is used to define the end of the string. 0 length strings will have the type '0xC3'
 
 *These exceptions are defined in more detail later in the document*
 

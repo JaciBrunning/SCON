@@ -11,6 +11,7 @@ module SCON
       :nil => 0xC0,
       :true => 0xC1,
       :false => 0xC2,
+      :zero_string => 0xC3,
 
       :string => 0xD0,
 
