@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.bindir        = "bin"
   spec.files = Dir.glob("lib/**/*") + ['Rakefile', 'scon.gemspec', 'Gemfile', 'Rakefile']
-  spec.executables   = []
+  spec.executables   = ["scon"]
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler"

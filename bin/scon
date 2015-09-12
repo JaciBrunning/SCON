@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+require 'scon'
+require 'optparse'
+
+@options = { :type => :json, :parse => false }
+OptionParser.new do |o|
+  o.on("-o", "--output FILE", "Output generated SCON to the file") {|x| @options[:output] = x }
+  o.on("-i", "--input FILE", "Input JSON from a specified file") {|x| @options[:input] = x }
+  o.on("--json", "Use JSON") {|x| @options[:type] = :json}
+  o.on("--msgpack", "Use MessagePack") {|x| @options[:type] = :msgpack}
+  o.on("-p", "--parse", "Parse instead of Generate") { |x| @options[:parse] = true }
+end.parse!
+
+if @options.include? :type
+  @type = @options[:type]
+  require "#{@type.to_s}"
+else
+  require "json"
+end
+
+def parse data
+  return SCON.parse!(data) if @options[:parse]
+  case @type
+  when :json
+    return JSON.parse(data)
+  when :msgpack
+    return MessagePack.unpack(data)
+  end
+end
+
+def generate data
+  return SCON.generate!(data) unless @options[:parse]
+  case @type
+  when :json
+    return JSON.generate(data)
+  when :msgpack
+    return data.to_msgpack
+  end
+end
+
+data = @options.include?(:input) ? File.read(@options[:input]) : ARGF.read
+new_data = generate parse(data)
+
+@options.include?(:output) ? File.write(@options[:output], new_data) : $stdout.puts(new_data)
