@@ -32,10 +32,10 @@ private
     elsif data[0] == 0xD0
       data.shift
       str = []
-      while (tmp = data.shift) != 0x03
+      while (tmp = data.shift) != 0xFF
         str << tmp
       end
-      return str.pack("c*")
+      return str.pack("c*").force_encoding("utf-8")
     else
       return false
     end
@@ -46,10 +46,10 @@ private
       return @data.shift(instruct - 0xD0).pack("c*")
     elsif instruct == 0xD0
       str = []
-      while (tmp = @data.shift) != 0x03
+      while (tmp = @data.shift) != 0xFF
         str << tmp
       end
-      return str.pack("c*")
+      return str.pack("c*").force_encoding("utf-8")
     else
       return false
     end

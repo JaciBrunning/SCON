@@ -28,12 +28,12 @@ module SCON
     end
 
     def self.string_bytes str
-      bytes = str.bytes
+      bytes = str.encode("utf-8").bytes
       instr = 0xD0
       if bytes.length < 32
         instr += bytes.length
       else
-        bytes << 0x03
+        bytes << 0xFF
       end
       [instr, bytes]
     end

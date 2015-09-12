@@ -161,10 +161,10 @@ private
       returnval = []
       if value <= 0x99 && value >= 0      # Byte, no following data bytes
         returnval[0] = value
-      elsif value <= ((2**16)/2-1) && value >= -(((2**16)/2-1))     # Short, following bytes
+      elsif value <= ((2**16)/2-1) && value >= -(((2**16)/2+1))     # Short, following bytes
         returnval[0] = Constants::DATA[:short]
         returnval[1] = Conversions.short_bytes(value)
-      elsif value <= ((2**32)/2-1) && value >= -(((2**32)/2-1))     # Integer, following bytes
+      elsif value <= ((2**32)/2-1) && value >= -(((2**32)/2+1))     # Integer, following bytes
         returnval[0] = Constants::DATA[:integer]
         returnval[1] = Conversions.int_bytes(value)
       else    # Long, following bytes

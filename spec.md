@@ -38,7 +38,7 @@ a number of factors.
   - NIL / TRUE / FALSE -- Enumerations, instruction contains value instead of data
   - Hash/Array Start/End -- Control Switches
   - String -- If the length of the string is less than 32 bytes, a range of 0xD0 - 0xEF is used. Else,
-0x03 (end-of-text) is used to define the end of the string.
+0xFF is used to define the end of the string.
 
 *These exceptions are defined in more detail later in the document*
 
@@ -58,12 +58,13 @@ a number of factors.
 
 #### Special Cases
   - **String**
+    - Strings are to be encoded in UTF-8 and stored as a byte array of the UTF-8 string.
     - **Less than 32 bytes**:
       - ```[data_type]```: ```0xD0``` + String Length. This results in a range of 0xD0 - 0xEF, which is reserved for String Lengths, requiring no 'data-termination' flag.
       - ```[data]```: The bytes of the string
     - **More than 32 bytes**:
       - ```[data_type]```: ```0xD0```
-      - ```[data]```: The bytes of the string, appended with ```0x03``` (end-of-text) to signify a termination of String Data.  
+      - ```[data]```: The bytes of the string, appended with ```0xFF``` to signify a termination of String Data.  
   - **Numbers**
       - Numbers are automatically registered a type depending on the value of the number, in order to save space. *(Whole Numbers only)*
       - **Less than ```0x99```**
