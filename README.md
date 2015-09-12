@@ -67,25 +67,25 @@ Some Byte Trickery is also used to decrease the file size. The most notable of w
 NIL, TRUE and FALSE also use only one byte for the type declaration and value, ```0xC0```, ```0xC1``` and ```0xC2``` respectively. More information regarding the storage system can be found in the Format Specification.
 
 ## Example Results
-Following are some simple examples of SCON, facing off against JSON (non-pretty-print) and MessagePack *(All values in Bytes)*  
+Following are some simple examples of SCON, facing off against JSON (non-pretty-print), CBOR and MessagePack *(All values in Bytes)*  
 
 ### Test 1:
 ```ruby
 { :compact => true, :schema => 0 }
 ```
 
-| JSON | MsgPack | SCON |
-|-----:|--------:|-----:|
-|27|**18**|**18**|
+| JSON | MsgPack | CBOR | SCON |
+|-----:|--------:|-----:|-----:|
+|27|**18**|**18**|**18**|
 
 ### Test 2:
 ```ruby
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-| JSON | MsgPack | SCON |
-|-----:|--------:|-----:|
-|21|11|**10**|
+| JSON | MsgPack | CBOR | SCON |
+|-----:|--------:|-----:|-----:|
+|21|11|11|**10**|
 
 ### Test 3:
 ```ruby
@@ -105,9 +105,9 @@ Following are some simple examples of SCON, facing off against JSON (non-pretty-
   }
 ```
 
-| JSON | MsgPack | SCON |
-|-----:|--------:|-----:|
-|128|92|**76**|
+| JSON | MsgPack | CBOR | SCON |
+|-----:|--------:|-----:|-----:|
+|128|92|92|**76**|
 
 ### Test 4:
 ```ruby
@@ -118,15 +118,15 @@ Following are some simple examples of SCON, facing off against JSON (non-pretty-
     :test_long_key_name => -258.52325 }}
 ```
 
-| JSON | MsgPack | SCON |
-|-----:|--------:|-----:|
-|758 968|569 676|**229 751**|
+| JSON | MsgPack | CBOR | SCON |
+|-----:|--------:|-----:|-----:|
+|758 968|569 676|569 780|**229 751**|
 
 ### Test 5:
 ```ruby
 [0, Array.new(100).fill(nil), 100]  # 100 Blank Indexes
 ```
 
-| JSON | MsgPack | SCON |
-|-----:|--------:|-----:|
-|509|106|**104**|
+| JSON | MsgPack | CBOR | SCON |
+|-----:|--------:|-----:|-----:|
+|509|106|106|**104**|

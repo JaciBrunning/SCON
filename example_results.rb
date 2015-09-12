@@ -2,6 +2,7 @@ $:.unshift File.join(File.dirname(__FILE__), "lib")
 require 'scon'
 require 'json'
 require 'msgpack'
+require 'cbor'
 
 TESTS = [
   { :compact => true, :schema => 0 },
@@ -16,6 +17,7 @@ TESTS.each_with_index do |value, i|
   puts "Test:     #{i}"
   puts "JSON:     #{JSON.generate(value).bytes.length} Bytes"
   puts "MsgPack:  #{value.to_msgpack.bytes.length} Bytes"
+  puts "CBOR:     #{value.to_cbor.bytes.length} Bytes"
   puts "SCON:     #{SCON.generate!(value).bytes.length} Bytes"
   puts
 end
