@@ -103,7 +103,7 @@ private
         end
         @body_bytes << Constants::DATA[:arr_end]
         return
-      elsif value.is_a? Fixnum
+      elsif value.is_a?(Fixnum) || value.is_a?(Bignum)
         instruct, serial = auto_number(value)
       elsif value.is_a? Float
         instruct = Constants::DATA[:float]

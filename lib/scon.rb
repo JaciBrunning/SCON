@@ -24,7 +24,7 @@ module SCON
     end
 
     def self.long_bytes long
-      [long].pack("l<").bytes
+      [long].pack("q<").bytes
     end
 
     def self.string_bytes str

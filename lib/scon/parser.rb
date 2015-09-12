@@ -65,7 +65,7 @@ private
     elsif instruct == Constants::DATA[:integer]
       return @data.shift(4).pack("c*").unpack("i<")[0]
     elsif instruct == Constants::DATA[:long]
-      return @data.shift(8).pack("c*").unpack("l<")[0]
+      return @data.shift(8).pack("c*").unpack("q<")[0]
     elsif instruct == Constants::DATA[:float]
       return @data.shift(4).pack("c*").unpack("e")[0]
     elsif instruct == Constants::DATA[:double]
