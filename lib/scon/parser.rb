@@ -122,6 +122,11 @@ private
         closed = true
         next
       end
+      if data_type == Constants::DATA[:arr_padding]
+        count = parse_value @data.shift
+        count.times { parent << nil }
+        data_type = @data.shift
+      end
       data_value = parse_value data_type
       parent << data_value
 

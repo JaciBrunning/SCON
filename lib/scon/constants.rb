@@ -17,7 +17,8 @@ module SCON
       :obj_start => 0xFA,
       :obj_end => 0xFB,
       :arr_start => 0xFC,
-      :arr_end => 0xFD
+      :arr_end => 0xFD,
+      :arr_padding => 0xFE
     }
   end
 end

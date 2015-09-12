@@ -75,19 +75,39 @@ private
           encode_value k, v, :hash
         end
       elsif object.is_a? Array
-        counter = 0
-        object.each_with_index do |v, i|
-          encode_value i, v, :array, counter
-          counter += 1
+        encode_array object
+      end
+    end
+
+    def encode_array object
+      is_nil = false
+      nilcount = 0
+      object.each_with_index do |v, i|
+        if v.nil?
+          is_nil = true
+          nilcount += 1
+        else
+          if is_nil
+            if nilcount > 2
+              @body_bytes << Constants::DATA[:arr_padding]
+              @body_bytes << auto_number(nilcount)
+            else
+              nilcount.times { @body_bytes << Constants::DATA[:nil] }
+            end
+          end
+          is_nil = false
+          nilcount = 0
+
+          encode_value i, v, :array
         end
       end
     end
 
-    def encode_value key, value, parent_type, array_counter=0
+    def encode_value key, value, parent_type
       instruct, serial = 0, nil
       if value.is_a? Hash
         @body_bytes << Constants::DATA[:obj_start]
-        encode_key key, parent_type, array_counter
+        encode_key key, parent_type
         value.each do |k, v|
           encode_value k, v, :hash
         end
@@ -95,12 +115,8 @@ private
         return
       elsif value.is_a? Array
         @body_bytes << Constants::DATA[:arr_start]
-        encode_key key, parent_type, array_counter
-        counter = 0
-        value.each_with_index do |v, i|
-          encode_value i, v, :array, counter
-          counter += 1
-        end
+        encode_key key, parent_type
+        encode_array value
         @body_bytes << Constants::DATA[:arr_end]
         return
       elsif value.is_a?(Fixnum) || value.is_a?(Bignum)
@@ -121,11 +137,11 @@ private
       end
 
       @body_bytes << instruct
-      encode_key key, parent_type, array_counter
+      encode_key key, parent_type
       @body_bytes << serial unless serial.nil?
     end
 
-    def encode_key key, parent_type, array_counter
+    def encode_key key, parent_type
       if parent_type == :hash
         keys = key.to_s
         encode_key_hash keys

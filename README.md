@@ -129,4 +129,4 @@ Following are some simple examples of SCON, facing off against JSON (non-pretty-
 
 | JSON | MsgPack | CBOR | SCON |
 |-----:|--------:|-----:|-----:|
-|509|106|106|**104**|
+|509|106|106|**4**|
