@@ -130,3 +130,6 @@ Following are some simple examples of SCON, facing off against JSON (non-pretty-
 | JSON | MsgPack | CBOR | SCON |
 |-----:|--------:|-----:|-----:|
 |509|106|106|**4**|
+
+## Language Porting
+As a young project, SCON currently exists only as this Ruby Gem. If you would like to port SCON to your language, feel free to do so. If you like, you can send me an email at jaci.brunning@gmail.com so I can add it to a list on this repo. Have fun!
