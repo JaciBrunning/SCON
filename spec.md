@@ -3,7 +3,7 @@
 SCON -- Simple and Compressed Object Notation
 
 ## File Extensions and Mime Types
-  SCON data should follow the file extension '.scon', and mime type 'text/scon' unless otherwise specified.
+  SCON data should follow the file extension '.scon', and mime type 'application/scon' unless otherwise specified.
 
 ## Key Logic
   Keys in Hash objects are often repeated among multiple entries, so in the interest
